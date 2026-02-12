@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .serif-title {
+    font-family: 'EB Garamond', serif;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 47 33% 96%;
+    --foreground: 210 20% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 20% 20%;
+    --primary: 210 30% 25%;
+    --primary-foreground: 47 33% 96%;
+    --secondary: 47 33% 88%;
+    --secondary-foreground: 210 30% 25%;
+    --muted: 210 15% 75%;
+    --muted-foreground: 210 15% 45%;
+    --accent: 210 30% 25%;
+    --accent-foreground: 47 33% 96%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 20% 85%;
+    --input: 47 33% 93%;
+    --ring: 210 30% 25%;
+    --chart-1: 210 70% 40%;
+    --chart-2: 47 60% 50%;
+    --chart-3: 210 30% 60%;
+    --chart-4: 210 50% 30%;
+    --chart-5: 47 70% 45%;
+    --radius: 0.5rem;
+    --sidebar-background: 47 33% 96%;
+    --sidebar-foreground: 210 20% 20%;
+    --sidebar-primary: 210 30% 25%;
+    --sidebar-primary-foreground: 47 33% 96%;
+    --sidebar-accent: 210 20% 90%;
+    --sidebar-accent-foreground: 210 30% 25%;
+    --sidebar-border: 210 20% 85%;
+    --sidebar-ring: 210 30% 25%;
+  }
+  .dark {
+    --background: 210 20% 15%;
+    --foreground: 47 33% 92%;
+    --card: 210 20% 22%;
+    --card-foreground: 47 33% 92%;
+    --popover: 210 20% 22%;
+    --popover-foreground: 47 33% 92%;
+    --primary: 47 60% 65%;
+    --primary-foreground: 210 20% 15%;
+    --secondary: 210 20% 30%;
+    --secondary-foreground: 47 33% 92%;
+    --muted: 210 20% 35%;
+    --muted-foreground: 210 15% 65%;
+    --accent: 47 60% 65%;
+    --accent-foreground: 210 20% 15%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 20% 30%;
+    --input: 210 20% 25%;
+    --ring: 47 60% 65%;
+    --chart-1: 47 70% 60%;
+    --chart-2: 210 60% 50%;
+    --chart-3: 47 50% 55%;
+    --chart-4: 210 70% 55%;
+    --chart-5: 47 80% 65%;
+    --sidebar-background: 210 20% 15%;
+    --sidebar-foreground: 47 33% 92%;
+    --sidebar-primary: 47 60% 65%;
+    --sidebar-primary-foreground: 210 20% 15%;
+    --sidebar-accent: 210 20% 30%;
+    --sidebar-accent-foreground: 47 33% 92%;
+    --sidebar-border: 210 20% 30%;
+    --sidebar-ring: 47 60% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
