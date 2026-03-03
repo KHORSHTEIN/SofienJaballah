@@ -1,74 +1,113 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { Navigation } from '@/components/navigation'
 
 export default function Publications() {
+  // 1. Change state to an object to track multiple counts
+  const [views, setViews] = useState<{ [key: string]: number }>({})
+
+  // 2. Load all views from localStorage on mount
+  useEffect(() => {
+    const allViews: { [key: string]: number } = {}
+    publications.forEach(pub => {
+      if (pub.file) {
+        const stored = Number(localStorage.getItem(`views-${pub.file}`) || 0)
+        allViews[pub.file] = stored
+      }
+    })
+    setViews(allViews)
+  }, [])
+
+  // 3. Update only the specific publication's count
+  const incrementViews = (file: string) => {
+    const currentViews = Number(localStorage.getItem(`views-${file}`) || 0)
+    const newViews = currentViews + 1
+    localStorage.setItem(`views-${file}`, newViews.toString())
+    
+    setViews(prev => ({
+      ...prev,
+      [file]: newViews
+    }))
+  }
+
   const publications = [
     {
-      type: 'Book',
-      title: 'Devenir salafiste en Tunisie – Le comment du pourquoi',
-      description:
-        'A comprehensive examination of processes of Salafist identity formation in Tunisia, exploring the personal, social, and ideological dimensions of this religious transformation.',
-      year: 2019,
-    },
-    {
-      type: 'Journal Article',
-      title: 'Religious Identity and Social Change in Contemporary Tunisia',
-      description:
-        'Analysis of the relationship between religious affiliation and social positioning in post-2011 Tunisia.',
-      year: 2021,
-    },
-    {
-      type: 'Journal Article',
-      title:
-        'Youth Vulnerability and Informal Economy Participation: Evidence from Urban Tunisia',
-      description:
-        'Empirical investigation of socioeconomic factors driving youth involvement in informal sector activities.',
-      year: 2020,
-    },
-    {
-      type: 'Book Chapter',
-      title: 'Migration Patterns and Identity Formation in the Maghreb',
-      description:
-        'Contribution to edited volume on North African migration and its social consequences.',
-      year: 2020,
-    },
-    {
-      type: 'Journal Article',
-      title: 'Radicalization Processes: A Sociological Framework',
-      description:
-        'Theoretical and empirical analysis of structural factors contributing to ideological radicalization.',
-      year: 2022,
+      type: 'Livre',
+      title: 'Barbecha : Re-penser les politiques de gestion des déchets en Tunisie',
+      description: 'Une analyse approfondie de l’économie informelle de la gestion des déchets à Tunis, explorant les enjeux sociaux, environnementaux et politiques liés aux collecteurs de déchets (Barbecha).',
+      year: 2024,
+      file: '/version-web-livre-barbecha (1).pdf',
+      image: '/barbecha.png',
     },
     {
       type: 'Working Paper',
-      title: 'Civil Society and Democratic Consolidation in Tunisia',
-      description:
-        'Analysis of civil society organizations\' role in post-transition institutional development.',
-      year: 2023,
+      title: 'Living, Breathing, Resisting: Gabès and the New Political Landscape in Tunisia',
+      description: 'Study examining environmental politics and social transformation in Gabès, Tunisia.',
+      year: 2024,
+      file: '/ENGLISH-Gabes-and-the-New-Political-Landscape-in-Tunisia.pdf',
+      image: '/thubn.PNG',
     },
+    {
+      type: 'MECAM Paper',
+      title: 'The "Success Story" and its Margins: Environment, Development, and Resistance in Gabès',
+      description: 'This paper explores the environmental and social consequences of industrial development in the Gabès region of Tunisia, focusing on local resistance and the concept of "environmental marginalization."',
+      year: 2024,
+      file: '/MECAM-Paper-16-Digital-Web-Version.pdf',
+      image: '/thubn2.PNG',
+    },
+    {
+      type: 'Case Study',
+      title: 'Young People: A Case Study of Ettadhamen, Douar Hicher, Fouchana, and Sidi Hassine',
+      description: 'A detailed sociological study focusing on youth in the marginalized peri-urban areas of Greater Tunis, examining their socio-economic conditions and relationship with local institutions.',
+      year: 2024,
+      file: '/Young-people.A-case-study-of-Ettadhamen-Douar-Hicher-Fouchana-and-Sidi-Hassine(1)(1).pdf',
+      image: '/thubn4.PNG',
+    },
+    {
+      type: 'Étude Sociologique Qualitative',
+      title: 'Étude Sociologique Qualitative : Ettadhamen, Douar Hicher, Fouchana et Sidi Hassine',
+      description: 'Une analyse approfondie des perceptions socio-économiques et politiques des habitants des quartiers populaires du Grand Tunis, mettant en lumière les défis de l’intégration urbaine et sociale.',
+      year: 2024,
+      file: '/Etude Sociologique qualitatives - FR(1).pdf',
+      image: '/thubn5.PNG',
+    },
+    {
+      type: 'Rapport de recherche',
+      title: 'Les « Néo-Exclus » : Les jeunes et l’État en Tunisie',
+      description: 'Une étude approfondie sur les dynamiques de marginalisation des jeunes en Tunisie, analysant les tensions entre les attentes citoyennes et les réponses institutionnelles dans un contexte post-révolutionnaire.',
+      year: 2024,
+      file: '/dri LES NÉO EXCLUS.pdf',
+      image: '/thubn3.PNG',
+    },
+    {
+      type: 'Rapport de recherche',
+      title: 'Jeunes, Application et client : Une sociologie de la livraison de repas en Tunisie',
+      description: 'Une exploration sociologique du secteur de la livraison de repas par plateforme, analysant les conditions de travail des livreurs, les rapports de force algorithmiques et les nouvelles habitudes de consommation.',
+      year: 2024,
+      file: '/Etude_Jeunes, Application et client - Une sociologie de la livraison de repas en Tunisie font update.pdf',
+      image: '/thubn6.PNG',
+    },
+    {
+      type: 'Étude Socio-anthropologique',
+      title: 'Le marché de la rue d’Espagne, ou le fonctionnement de l’économie de rue à Tunis',
+      description: 'Une étude approfondie explorant les dynamiques sociales et économiques du commerce informel à Tunis, analysant les réseaux de solidarité, les stratégies de survie et le rapport à l’espace urbain.',
+      year: 2024,
+      file: '/Street economy in Tunis Soufiane Jaballah.pdf',
+      image: '/thubn7.png',
+    },
+    {
+      type: 'Étude de recherche',
+      title: 'De la rue à la mer : Les nouvelles politiques de l’informel en Tunisie',
+      description: 'Une analyse critique des politiques de lutte contre l’économie informelle et l’émigration, examinant leur impact sur la classe du « précariat » et les dynamiques de l’économie souterraine.',
+      year: 2024,
+      file: '/Economie informelle et migration.pdf',
+      image: '/thubn8.png',
+    }
   ]
 
-  const conferences = [
-    {
-      title: 'International Conference on Middle Eastern Sociology',
-      location: 'Beirut, Lebanon',
-      year: 2023,
-    },
-    {
-      title: 'North African Studies Association Annual Meeting',
-      location: 'Tunis, Tunisia',
-      year: 2022,
-    },
-    {
-      title: 'European Sociological Association Conference',
-      location: 'Athens, Greece',
-      year: 2022,
-    },
-    {
-      title: 'Maghreb Youth Studies Symposium',
-      location: 'Rabat, Morocco',
-      year: 2021,
-    },
-  ]
+ 
+  
 
   return (
     <main className="min-h-screen bg-background">
@@ -85,137 +124,88 @@ export default function Publications() {
             </h1>
           </div>
 
-          {/* Books & Articles */}
-          <div className="mb-20 space-y-8">
+          <div className="mb-20 space-y-12">
             <h2 className="serif-title text-3xl font-bold text-foreground">
               Livres et articles
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-10">
               {publications.map((pub, idx) => (
-                <div
-                  key={idx}
-                  className="border-l-4 border-primary pl-6 py-2 space-y-2"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
-                        {pub.type}
-                      </p>
-                      <h3 className="serif-title text-xl font-bold text-foreground">
-                        {pub.title}
-                      </h3>
-                      <p className="text-foreground leading-relaxed">
-                        {pub.description}
-                      </p>
+                <div key={idx} className="group border-l-4 border-primary pl-6 py-2">
+                  <div className="flex flex-col md:flex-row gap-8">
+                    {pub.image && (
+                      <div className="w-full md:w-40 lg:w-48 flex-shrink-0">
+                        <img 
+                          src={pub.image} 
+                          alt={`Cover of ${pub.title}`} 
+                          className="w-full h-auto rounded-md border border-border shadow-md group-hover:shadow-lg transition-shadow duration-300"
+                        />
+                      </div>
+                    )}
+
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-start gap-4">
+                          <div>
+                            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">
+                              {pub.type}
+                            </p>
+                            <h3 className="serif-title text-2xl font-bold text-foreground leading-tight">
+                              {pub.title}
+                            </h3>
+                          </div>
+                          <span className="text-primary font-bold text-lg">
+                            {pub.year}
+                          </span>
+                        </div>
+
+                        <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                          {pub.description}
+                        </p>
+                      </div>
+
+                      {pub.file && (
+                        <div className="mt-8 pt-6 border-t border-border/50">
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                            <span className="opacity-70">👁️ Lectures :</span>
+                            <span className="font-mono font-medium text-foreground">
+                              {/* Display specific view count for this file */}
+                              {views[pub.file] || 0}
+                            </span>
+                          </div>
+
+                          <div className="flex gap-3 flex-wrap">
+                            <a
+                              href={pub.file}
+                              download
+                              onClick={() => incrementViews(pub.file)}
+                              className="px-5 py-2 bg-primary text-primary-foreground rounded-md text-sm font-semibold hover:brightness-110 transition shadow-sm"
+                            >
+                              📥 Télécharger
+                            </a>
+
+                            <a
+                              href={pub.file}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => incrementViews(pub.file)}
+                              className="px-5 py-2 border border-input bg-background rounded-md text-sm font-semibold hover:bg-accent hover:text-accent-foreground transition"
+                            >
+                              📖 Lire le document
+                            </a>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <span className="text-primary font-semibold whitespace-nowrap">
-                      {pub.year}
-                    </span>
                   </div>
                 </div>
               ))}
             </div>
-
-            <button className="flex items-center gap-2 text-primary hover:opacity-80 transition font-medium mt-4">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              Télécharger le CV
-            </button>
           </div>
 
-          {/* Conferences & Talks */}
-          <div className="space-y-8">
-            <h2 className="serif-title text-3xl font-bold text-foreground">
-              Conférences et présentations
-            </h2>
-
-            <div className="space-y-4">
-              {conferences.map((conf, idx) => (
-                <div
-                  key={idx}
-                  className="bg-card border border-border rounded-lg p-6 flex items-start justify-between gap-4"
-                >
-                  <div>
-                    <h3 className="font-bold text-lg text-foreground mb-2">
-                      {conf.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm">
-                      {conf.location}
-                    </p>
-                  </div>
-                  <span className="text-primary font-semibold whitespace-nowrap">
-                    {conf.year}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Media Appearances */}
-          <div className="mt-20 space-y-8">
-            <h2 className="serif-title text-3xl font-bold text-foreground">
-              Apparitions médiatiques
-            </h2>
-
-            <div className="bg-primary/5 border border-border rounded-xl p-8 space-y-4">
-              <p className="text-foreground/80 leading-relaxed">
-                Dr. Jaballah contribue régulièrement aux discussions médiatiques publiques sur les enjeux sociaux contemporains en Tunisie et dans la région du Maghreb. Son expertise est recherchée sur des sujets incluant les mouvements religieux, l'engagement des jeunes, la politique sociale et le développement de la société civile.
-              </p>
-              <p className="text-foreground/60 text-sm">
-                Les apparitions médiatiques récentes incluent des interviews avec des médias de presse internationaux et des médias locaux discutant de la transformation sociale tunisienne et du rôle de la société civile.
-              </p>
-            </div>
-          </div>
+       
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-primary text-primary-foreground py-16 px-6 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 pb-12 border-b border-primary-foreground/10">
-            <div>
-              <h3 className="serif-title text-xl font-bold mb-3">Dr. Sofien Jaballah</h3>
-              <p className="text-primary-foreground/80 text-sm leading-relaxed max-w-sm">
-                Professeur-chercheur à l'Université de Sfax, spécialisé en sociologie des transformations sociales et des mouvements religieux.
-              </p>
-            </div>
-            <div className="flex flex-col justify-end gap-4">
-              <div className="flex gap-4">
-                <a href="mailto:contact@example.com" className="text-sm hover:text-primary-foreground/70 transition">
-                  Email
-                </a>
-                <a href="#" className="text-sm hover:text-primary-foreground/70 transition">
-                  LinkedIn
-                </a>
-                <a href="#" className="text-sm hover:text-primary-foreground/70 transition">
-                  ResearchGate
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-primary-foreground/60">
-              © 2026 Dr. Sofien Jaballah. Tous droits réservés.
-            </p>
-            <div className="flex gap-6 text-xs text-primary-foreground/60">
-              <a href="#" className="hover:text-primary-foreground/90 transition">Mentions légales</a>
-              <a href="#" className="hover:text-primary-foreground/90 transition">Confidentialité</a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </main>
   )
 }

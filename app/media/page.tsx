@@ -111,6 +111,14 @@ export default function Media() {
   youtubeId: "q_uXVzA_tsY",
   thumbnail: "https://img.youtube.com/vi/q_uXVzA_tsY/hqdefault.jpg",
   description: "Interview spéciale avec Sofien Jaballah à propos de son nouveau livre lors du Salon International du Livre.",
+},
+{
+  title: "منازل الفن ليوم 13-06-2025",
+  source: "YouTube",
+  date: "2025",
+  youtubeId: "BA6ZYgK8Jbg",
+  thumbnail: "https://img.youtube.com/vi/BA6ZYgK8Jbg/hqdefault.jpg",
+  description: "حلقة من برنامج منازل الفن بتاريخ 13 جوان 2025.",
 }
 
 
